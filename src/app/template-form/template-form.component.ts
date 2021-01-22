@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-template-form',
@@ -14,8 +15,9 @@ export class TemplateFormComponent implements OnInit {
   }
 
   onSubmit(form){
-    console.log(form);
-    console.log(this.usuario);
+    this.http.post('https://httpbin.org/post', JSON.stringify(form.value))
+    .pipe(map(dados =>  dados))
+    .subscribe(dados => console.log(dados))
   }
 
   constructor(private http: HttpClient) { }
