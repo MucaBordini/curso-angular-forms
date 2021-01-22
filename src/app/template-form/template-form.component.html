@@ -18,12 +18,12 @@
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-  <div ngModelGroup="endereco">
+  <div class="endereco" ngModelGroup="endereco">
     <div class="form-row">
 
       <div class="form-group col-sm-3">
         <label for="cep" class="control-label">CEP</label>
-        <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
+        <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel" (blur)="consultaCep($event.target.value)">
         <div class="alert alert-danger" role="alert" *ngIf="!cep.valid && cep.touched">
           CEP é obrigatório
         </div>
