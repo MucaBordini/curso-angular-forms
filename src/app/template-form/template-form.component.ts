@@ -23,17 +23,42 @@ export class TemplateFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  consultaCep(cep){
+  consultaCep(cep, form){
     cep = cep.replace(/\D/g, '');
 
     if (cep != "") {
       var validaCep = /^[0-9]{8}$/;
       
       if (validaCep.test(cep)) {
+        this.resetaDadosForm(form); 
         this.http.get(`https://viacep.com.br/ws/${cep}/json`)
-        .subscribe(data => { console.log(data); });
+        .subscribe(data => { this.populaDadosForm(data, form); });
       }
     }
+  }
+
+  populaDadosForm(dados, formulario){
+    formulario.form.patchValue({
+      endereco: {
+        rua: dados.logradouro,
+        complemento: dados.complemento,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    });
+  }
+
+  resetaDadosForm(formulario) {
+    formulario.form.patchValue({
+      endereco: {
+        rua: null,
+        complemento: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    });
   }
 
 }
