@@ -1,22 +1,86 @@
 <br><br>
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
-  <div class="form-group">
-    <label for="nome">Nome</label>
-    <input name="nome" type="text" class="form-control" id="nome" placeholder="Digite seu nome" [(ngModel)]="usuario.nome" required #nome="ngModel">
-    
-    <div class="alert alert-danger" role="alert" *ngIf="!nome.valid && nome.touched">
-        Nome é obrigatório
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nome@email.com" [(ngModel)]="usuario.email" required email #email="ngModel">
-    <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched">
-        Email inválido
-    </div>
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-horizontal">
 
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input name="nome" type="text" class="form-control" id="nome" placeholder="Digite seu nome" [(ngModel)]="usuario.nome" required #nome="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="!nome.valid && nome.touched">
+          Nome é obrigatório
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nome@email.com" [(ngModel)]="usuario.email" required email #email="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched">
+          Email inválido
+      </div>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-sm-3">
+      <label for="cep" class="control-label">CEP</label>
+      <input type="text" class="form-control" id="cep" name="cep" ngModel required #cep="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="!cep.valid && cep.touched">
+        CEP é obrigatório
+      </div>
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="numero" class="control-label">Número</label>
+      <input type="text" class="form-control" id="numero" name="numero" ngModel required #numero="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="!numero.valid && numero.touched">
+        Número é obrigatório
+      </div>
+    </div>
+
+    <div class="form-group col-sm-6">
+      <label for="complemento" class="control-label">Complemento</label>
+      <input type="text" class="form-control" id="complemento" name="complemento" ngModel required #complemento="ngModel">
+      <div class="alert alert-danger" role="alert" *ngIf="!complemento.valid && complemento.touched">
+        Complemento é obrigatório
+      </div>
+    </div>
+    
+  </div>
+  <div class="form-group">
+    <label for="rua">Rua</label>
+    <input name="rua" type="text" class="form-control" id="rua" placeholder="Digite sua rua" ngModel required #rua="ngModel" readonly>
+    <div class="alert alert-danger" role="alert" *ngIf="!rua.valid && rua.touched">
+        Rua é obrigatório
+    </div>
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-sm-5">
+      <label for="bairro" class="control-label">Bairro</label>
+      <input type="text" class="form-control" id="bairro" name="bairro" ngModel required #bairro="ngModel" readonly>
+      <div class="alert alert-danger" role="alert" *ngIf="!bairro.valid && bairro.touched">
+        Bairro é obrigatório
+      </div>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label for="cidade" class="control-label">Cidade</label>
+      <input type="text" class="form-control" id="cidade" name="cidade" ngModel required #cidade="ngModel" readonly>
+      <div class="alert alert-danger" role="alert" *ngIf="!cidade.valid && cidade.touched">
+        Cidade é obrigatório
+      </div>
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="estado" class="control-label">Estado</label>
+      <input type="text" class="form-control" id="estado" name="estado" ngModel required #estado="ngModel" readonly>
+      <div class="alert alert-danger" role="alert" *ngIf="!estado.valid && estado.touched">
+        Estado é obrigatório
+      </div>
+    </div>
+    
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
   <app-form-debug [form]="f"></app-form-debug>
 </form>
