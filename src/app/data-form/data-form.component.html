@@ -1,5 +1,5 @@
 <br><br>
-<form #f class="form-horizontal" [formGroup]="formulario">
+<form #f class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
       <label for="nome">Nome</label>
