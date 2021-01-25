@@ -19,6 +19,7 @@ export class DataFormComponent implements OnInit {
   estados: Observable<EstadosBr[]>;
   cargos: any[];
   tecnologias: any[];
+  newsletters: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +51,8 @@ export class DataFormComponent implements OnInit {
         estado: []
       }),
       cargo: [null],
-      tecnologia: [null]
+      tecnologia: [null],
+      newsletter: ['s']
     });
 
   }
