@@ -15,10 +15,18 @@ export class DropdownService {
 
   getCargos(){
     return[
-      { nome: 'Dev', nivel: 'Junior', descricao: 'Dev Jr'},
-      { nome: 'Dev', nivel: 'Pleno', descricao: 'Dev Pl'},
-      { nome: 'Dev', nivel: 'Senior', descricao: 'Dev Sr'},
+      { nome: 'Dev', nivel: 'Junior', descricao: 'Dev Jr' },
+      { nome: 'Dev', nivel: 'Pleno', descricao: 'Dev Pl' },
+      { nome: 'Dev', nivel: 'Senior', descricao: 'Dev Sr' },
     ];
+  }
+
+  getTecnologias(){
+    return [
+      { nome: 'Java', descricao: 'Linguagem orientada a obj' },
+      { nome: 'C', descricao: 'Linguagem estruturada' },
+      { nome: 'Delphi', descricao: 'Linguagem orientada a procedure' }
+    ]
   }
 
 }
