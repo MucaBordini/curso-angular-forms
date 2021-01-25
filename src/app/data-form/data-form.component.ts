@@ -19,14 +19,15 @@ export class DataFormComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      cep: [null, Validators.required],
-      numero: [null, Validators.required],
-      complemento: [],
-      rua: [],
-      bairro: [],
-      cidade: [],
-      estado: []
-      
+      endereco: this.formBuilder.group({
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [],
+        rua: [],
+        bairro: [],
+        cidade: [],
+        estado: []
+      })
     });
 
   }
