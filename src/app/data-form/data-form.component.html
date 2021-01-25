@@ -94,6 +94,15 @@
 
 
 
+    <div class="form-group">
+      <label for="cargo" class="control-label">Cargo</label>
+        <select formControlName="cargo" type="text" class="form-control" id="cargo" name="cargo" [compareWith]="compararCargo">
+
+          <option *ngFor="let cargo of cargos" [ngValue]="cargo"> {{ cargo.descricao }} </option>
+
+        </select>
+    </div>
+
 
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
