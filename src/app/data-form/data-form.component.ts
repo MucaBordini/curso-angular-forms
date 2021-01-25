@@ -1,7 +1,9 @@
+import { EstadosBr } from './../shared/models/estados-br';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { DropdownService } from '../shared/services/dropdown.service';
 
 @Component({
   selector: 'app-data-form',
@@ -11,10 +13,20 @@ import { map } from 'rxjs/operators';
 export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
+  estados: EstadosBr[]
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private dropDownService: DropdownService
+    ) { }
 
   ngOnInit(): void {
+
+    this.estados=[];
+    this.dropDownService.getEstadosBr().subscribe((res: EstadosBr)=>{
+    this.estados.push(res)
+  });
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
@@ -46,7 +58,7 @@ export class DataFormComponent implements OnInit {
       console.log('Formulario invalido');
       this.verificaValidacoesFormulario(this.formulario)
     }
-    
+
   }
 
   verificaValidacoesFormulario(formGroup: FormGroup){
@@ -92,9 +104,9 @@ export class DataFormComponent implements OnInit {
 
     if (cep != "") {
       var validaCep = /^[0-9]{8}$/;
-      
+
       if (validaCep.test(cep)) {
-        this.resetaDadosForm(); 
+        this.resetaDadosForm();
         this.http.get(`https://viacep.com.br/ws/${cep}/json`)
         .subscribe(data => { this.populaDadosForm(data); });
       }
