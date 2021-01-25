@@ -45,6 +45,11 @@
             msgErro="CEP é obrigatório"
           >
           </app-campo-control-erro>
+          <app-campo-control-erro
+            [mostrarErro]="formulario.get('endereco.cep').hasError('cepInvalido')"
+            msgErro="CEP inválido"
+          >
+          </app-campo-control-erro>
         </div>
 
         <div class="form-group col-sm-3">
