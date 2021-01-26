@@ -1,3 +1,4 @@
+import { BaseFormComponent } from './../shared/base-form/base-form.component';
 import { VerificaEmailService } from './services/verifica-email.service';
 import { ConsultaCepService } from './../shared/services/consulta-cep.service';
 import { EstadosBr } from './../shared/models/estados-br';
@@ -14,10 +15,8 @@ import { FormValidations } from '../shared/form-validations';
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.css']
 })
-export class DataFormComponent implements OnInit {
+export class DataFormComponent extends BaseFormComponent implements OnInit {
 
-  formulario: FormGroup;
-  //estados: EstadosBr[];
   estados: Observable<EstadosBr[]>;
   cargos: any[];
   tecnologias: any[];
@@ -30,7 +29,9 @@ export class DataFormComponent implements OnInit {
     private dropDownService: DropdownService,
     private cepService: ConsultaCepService,
     private verificaEmailService: VerificaEmailService
-    ) { }
+    ) {
+      super();
+     }
 
   ngOnInit(): void {
 
@@ -82,9 +83,7 @@ export class DataFormComponent implements OnInit {
 
   }
 
-
-
-  onSubmit(){
+  submit() {
     console.log(this.formulario.value);
 
     let valueSubmit = Object.assign({}, this.formulario.value);
@@ -97,53 +96,13 @@ export class DataFormComponent implements OnInit {
 
     console.log(valueSubmit);
 
-    if(this.formulario.valid){
-      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+    this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
       .pipe(map(dados =>  dados))
       .subscribe(dados => {
         console.log(dados);
         this.resetar();
       },
         (error: any) => alert('Erro!'));
-    } else {
-      console.log('Formulario invalido');
-      this.verificaValidacoesFormulario(this.formulario)
-    }
-
-  }
-
-  verificaValidacoesFormulario(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(campo => {
-      console.log(campo);
-      const controle = formGroup.get(campo);
-      controle.markAsTouched();
-      if(controle instanceof FormGroup){
-        this.verificaValidacoesFormulario(controle)
-      }
-    });
-  }
-
-  resetar(){
-    this.formulario.reset();
-  }
-
-  aplicaCssErro(campo: string){
-    return{
-      'is-invalid': this.verificaValidTouched(campo),
-      'has-feedback': this.verificaValidTouched(campo)
-    }
-  }
-
-  verificaEmailInvalido(){
-    let campoEmail = this.formulario.get('email');
-    if (campoEmail.errors){
-      return campoEmail.errors['email'];
-    }
-  }
-
-  verificaValidTouched(campo: string){
-
-    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
 
   }
 
