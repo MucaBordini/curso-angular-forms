@@ -4,9 +4,9 @@ import { EstadosBr } from './../shared/models/estados-br';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { DropdownService } from '../shared/services/dropdown.service';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
 
 @Component({
@@ -64,6 +64,14 @@ export class DataFormComponent implements OnInit {
       frameworks: this.buildFrameworks()
     });
 
+    this.formulario.get('endereco.cep').statusChanges
+    .pipe(
+      distinctUntilChanged(),
+      tap(status => console.log('valor Cep: ', status)),
+      switchMap(status => status === 'VALID' ? this.cepService.consultaCep(this.formulario.get('endereco.cep').value)
+      : empty())
+    )
+      .subscribe(dados => dados ? /*dados => { */this.populaDadosForm(dados)/*; }*/ : {});
   }
 
   buildFrameworks(){
