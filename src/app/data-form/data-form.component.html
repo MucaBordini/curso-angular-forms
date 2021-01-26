@@ -4,13 +4,7 @@
     <div class="form-group">
       <label for="nome">Nome</label>
       <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Digite seu nome" [ngClass]="aplicaCssErro('nome')">
-      <!--div class="alert alert-danger" role="alert">
-          Nome é obrigatório
-      </div-->
-      <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('nome')"
-        msgErro="Nome é obrigatório"
-      ></app-campo-control-erro>
+      <app-error-msg [control]="formulario.get('nome')" label="Nome"></app-error-msg>
     </div>
 
 
